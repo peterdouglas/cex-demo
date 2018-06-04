@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <title>CEX Transparency Report</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="./stylesheets/materialize.min.css" media="screen,projection"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="./app.js"></script>
+</head>
+<body>
+<nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Cross-chain Exchange Service</a>
+    </div>
+</nav>
+<div class="section no-pad-bot">
+    <div class="container">
+        <h1 class="header center blue-grey-text">Token Exchange</h1>
+        <div class="row center">
+           <form class="center">
+               <div class="input-field col offset-s2 s5 right-align">
+                   <input placeholder="Tokens to Lock" id="tokenAmount" type="number">
+                   <label for="tokenAmount">Number of tokens to lock</label>
+               </div>
+               <div class="col s4 center-align"><a class="btn waves-effect waves-light"  onclick="App.allocateTokens(document.getElementById('tokenAmount').value.valueOf())">Lock <i class="material-icons right">lock_outline</i></a> </div>
+           </form>
+        </div>
+<div class="section no-pad-bot">
+    <div class="container">
+        <h1 class="header center blue-grey-text">Main Network</h1>
+        <div class="row stat-text">
+            <div class="col stat-header">Total Supply:</div>
+            <div  class="col"><span id="mainTotal"></span> AHC</div>
+        </div>
+    <div class="row stat-text">
+        <div class="col stat-header">Total Available:</div>
+        <div class="col"><span id="mainAvailable" ></span> AHC</div>
+    </div>
+    <div class="row card-panel center">
+        <img id="mainLoader" src="https://loading.io/spinners/double-ring/lg.double-ring-spinner.gif">
+        <div class="log-text" id="main"></div>
+    </div>
+
+    <br>
+    <h1 class="header center blue-grey-text">Regional Network</h1>
+    <div class="row stat-text">
+        <div class="col stat-header">Total Supply:</div>
+        <div  class="col"><span id="regTotal"></span> RHC</div>
+    </div>
+<div class="row card-panel center">
+    <img id="regLoader" src="https://loading.io/spinners/double-ring/lg.double-ring-spinner.gif">
+    <p class="log-text" id="regional"></p>
+</div>
+</div>
+</div>
+<br>
+</body>
+</html>
