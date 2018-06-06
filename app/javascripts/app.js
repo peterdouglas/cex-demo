@@ -73,7 +73,7 @@ window.App = {
       tLock.watch(function (error, result) {
         if (!error) {
           $('#mainLoader').hide()
-          $('#main').append(` <div>${result.args.value} tokens have been locked on the main network</div>`)
+          $('#main').append(` <li class="collection-item">${result.args.value} tokens have been locked on the main network</li>`)
         } else {
           console.log(error)
         }
@@ -82,8 +82,8 @@ window.App = {
       tUnlock.watch(function (error, result) {
         if (!error) {
           $('#mainLoader').hide()
-          $('#main').append(`<div>${result.args.value} tokens have been unlocked
-          on the main network</div>`)
+          $('#main').append(`<li class="collection-item">${result.args.value} tokens have been unlocked
+          on the main network</li>`)
         } else {
           console.log(error)
         }
@@ -98,7 +98,7 @@ window.App = {
       mint.watch(function (error, result) {
         if (!error) {
           $('#regLoader').hide()
-          $('#regional').append(`<div>${result.args.amount} tokens have been minted</div>`)
+          $('#regional').append(`<li class="collection-item">${result.args.amount} tokens have been minted</li>`)
         } else {
           console.log(error)
         }
@@ -108,7 +108,7 @@ window.App = {
       burn.watch(function (error, result) {
         if (!error) {
           $('#regLoader').hide()
-          $('#regional').append(`<div>${result.args.value} tokens have been burned</div>`)
+          $('#regional').append(`<li class="collection-item">${result.args.value} tokens have been burned</li>`)
         } else {
           console.log(error)
         }

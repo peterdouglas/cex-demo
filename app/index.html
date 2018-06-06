@@ -19,59 +19,70 @@
 </head>
 <body>
 <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Cross-chain Exchange Service</a>
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Cross-chain Exchange
+        Service</a>
     </div>
 </nav>
-<div class="section no-pad-bot">
     <div class="container">
         <h1 class="header center blue-grey-text">Token Exchange</h1>
         <div class="row center">
-           <form class="center">
-               <div class="input-field col offset-s2 s5 right-align">
-                   <input placeholder="Tokens to Lock" id="tokenAmount" type="number">
-                   <label for="tokenAmount">Number of tokens to lock</label>
-               </div>
-               <div class="col s4 center-align"><a class="btn waves-effect waves-light"  onclick="App.allocateTokens(document.getElementById('tokenAmount').value.valueOf())">Lock <i class="material-icons right">lock_outline</i></a> </div>
-           </form>
-        </div>
-
-        <div class="row center">
-            <form class="center">
-                <div class="input-field col offset-s2 s5 right-align">
-                    <input placeholder="Tokens to Burn" id="tokenBurn" type="number">
-                    <label for="tokenBurn">Number of tokens to burn</label>
+            <div class="col l6">
+                <div class="row center-align">
+                    <h2 class="header center-align blue-grey-text">Transfer</h2>
+                    <form class="center-align">
+                        <div class="input-field col offset-m1  m5 right-align">
+                            <input placeholder="Tokens to Lock" id="tokenAmount" type="number">
+                            <label for="tokenAmount">Number of tokens to lock</label>
+                        </div>
+                        <div class="col m4 right-align"><a class="btn waves-effect waves-light"
+                                                            onclick="App.allocateTokens(document.getElementById('tokenAmount').value.valueOf())">Lock
+                            <i class="material-icons right">lock_outline</i></a></div>
+                    </form>
                 </div>
-                <div class="col s4 center-align"><a class="btn waves-effect waves-light"  onclick="App.deallocate(document.getElementById('tokenBurn').value.valueOf())">Burn <i class="material-icons right">whatshot</i></a> </div>
-            </form>
-        </div>
-<div class="section no-pad-bot">
-    <div class="container">
-        <h1 class="header center blue-grey-text">Main Network</h1>
-        <div class="row stat-text">
-            <div class="col stat-header">Total Supply:</div>
-            <div  class="col"><span id="mainTotal"></span> AHC</div>
-        </div>
-    <div class="row stat-text">
-        <div class="col stat-header">Total Available:</div>
-        <div class="col"><span id="mainAvailable" ></span> AHC</div>
-    </div>
-    <div class="row card-panel center">
-        <img id="mainLoader" src="https://loading.io/spinners/double-ring/lg.double-ring-spinner.gif">
-        <div class="log-text" id="main"></div>
-    </div>
 
-    <br>
-    <h1 class="header center blue-grey-text">Regional Network</h1>
-    <div class="row stat-text">
-        <div class="col stat-header">Total Supply:</div>
-        <div  class="col"><span id="regTotal"></span> RHC</div>
+                <div class="row center">
+                    <form class="center">
+                        <div class="input-field col offset-m1 m5 right-align">
+                            <input placeholder="Tokens to Burn" id="tokenBurn" type="number">
+                            <label for="tokenBurn">Number of tokens to burn</label>
+                        </div>
+                        <div class="col s4 right-align"><a class="btn waves-effect waves-light"
+                                                            onclick="App.deallocate(document.getElementById('tokenBurn').value.valueOf())">Burn
+                            <i class="material-icons right">whatshot</i></a></div>
+                    </form>
+                </div>
+            </div>
+            <div class="col l6">
+                <h2 class="header center blue-grey-text">Main Network</h2>
+                <div class="row stat-text">
+                    <div class="col stat-header">Total Supply:</div>
+                    <div class="col"><span id="mainTotal"></span> AHC</div>
+                </div>
+                <div class="row stat-text">
+                    <div class="col stat-header">Total Available:</div>
+                    <div class="col"><span id="mainAvailable"></span> AHC</div>
+                </div>
+                    <img id="mainLoader"
+                         src="https://loading.io/spinners/double-ring/lg.double-ring-spinner.gif">
+                    <ul class="collection log-text" id="main">
+                        <li class="collection-header"><h4>Event log</h4></li>
+                    </ul>
+
+
+                <br>
+                <h2 class="header center blue-grey-text">Regional Network</h2>
+                <div class="row stat-text">
+                    <div class="col stat-header">Total Supply:</div>
+                    <div class="col"><span id="regTotal"></span> RHC</div>
+                </div>
+                    <img id="regLoader"
+                         src="https://loading.io/spinners/double-ring/lg.double-ring-spinner.gif">
+                    <ul class="collection log-text" id="regional">
+                        <li class="collection-header"><h4>Event log</h4></li>
+                    </ul>
+            </div>
+        </div>
     </div>
-<div class="row card-panel center">
-    <img id="regLoader" src="https://loading.io/spinners/double-ring/lg.double-ring-spinner.gif">
-    <p class="log-text" id="regional"></p>
-</div>
-</div>
-</div>
-<br>
+    <br>
 </body>
 </html>
