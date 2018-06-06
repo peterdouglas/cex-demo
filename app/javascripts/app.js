@@ -20,16 +20,19 @@ const RegToken = contract(regtoken_artifacts)
 // For application bootstrapping, check out window.addEventListener below.
 let accounts
 let account
-let web3 = new Web3()
-web3.setProvider(new web3.providers.HttpProvider('http://127.0.0.1:8545'))
+let regAccounts
+let web3Main = new Web3()
+let web3Reg = new Web3()
+web3Main.setProvider(new web3Main.providers.HttpProvider('http://127.0.0.1:8545'))
+web3Reg.setProvider(new web3Reg.providers.HttpProvider('http://127.0.0.1:22000'))
 window.App = {
 
   start: function () {
     // Bootstrap the MetaCoin abstraction for Use.
-    MainToken.setProvider(web3.currentProvider)
-    RegToken.setProvider(web3.currentProvider)
+    MainToken.setProvider(web3Main.currentProvider)
+    RegToken.setProvider(web3Reg.currentProvider)
     // Get the initial account balance so it can be displayed.
-    web3.eth.getAccounts(function (err, accs) {
+    web3Main.eth.getAccounts(function (err, accs) {
       if (err != null) {
         window.alert('There was an error fetching your accounts.')
         return
@@ -42,6 +45,21 @@ window.App = {
 
       accounts = accs
       account = accounts[0]
+    })
+
+    // get the accounts from quorum
+    web3Reg.eth.getAccounts(function (err, accs) {
+      if (err != null) {
+        window.alert('There was an error fetching your accounts.')
+        return
+      }
+
+      if (accs.length === 0) {
+        window.alert("Couldn't get any accounts! Make sure your Quorum client is configured correctly.")
+        return
+      }
+
+      regAccounts = accs
     })
     MainToken.deployed().then(function (f) {
       let mtContract = f
@@ -64,7 +82,7 @@ window.App = {
       tUnlock.watch(function (error, result) {
         if (!error) {
           $('#mainLoader').hide()
-          $('#main').append(`<div>${result.args.value} tokens have been unl
+          $('#main').append(`<div>${result.args.value} tokens have been unlocked
           on the main network</div>`)
         } else {
           console.log(error)
@@ -81,6 +99,16 @@ window.App = {
         if (!error) {
           $('#regLoader').hide()
           $('#regional').append(`<div>${result.args.amount} tokens have been minted</div>`)
+        } else {
+          console.log(error)
+        }
+      })
+
+      let burn = regContract.Burn({}, { fromBlock: 0, toBlock: 'latest' })
+      burn.watch(function (error, result) {
+        if (!error) {
+          $('#regLoader').hide()
+          $('#regional').append(`<div>${result.args.value} tokens have been burned</div>`)
         } else {
           console.log(error)
         }
@@ -116,9 +144,35 @@ window.App = {
         let total = val.plus(amount)
         $('#regTotal').text(total.toString());
       })
-      return main.mint(account.valueOf(), tokenAmount, {from: account})
+      return main.mint(regAccounts[0].valueOf(), tokenAmount, {from: regAccounts[0]})
     }).then(function (res) {
       console.log('Mint successful')
+    }).catch(function(e) {
+      console.log(e)
+    })
+  },
+  deallocate : function (tokenAmount) {
+    const amount = new BigNumber(tokenAmount)
+    MainToken.deployed().then(function (main) {
+      main.availableSupply().then(function(val) {
+        let available = val.plus(amount)
+        $('#mainAvailable').text(available.toString());
+      })
+      return main.unlock(tokenAmount, {from: account})
+    }).then(function (res) {
+      console.log('Unlock successful')
+    }).catch(function(e) {
+      console.log(e)
+    })
+
+    RegToken.deployed().then(function (main) {
+      main.totalSupply().then(function(val) {
+        let total = val.minus(amount)
+        $('#regTotal').text(total.toString());
+      })
+      return main.burn(tokenAmount, {from: regAccounts[0]})
+    }).then(function (res) {
+      console.log('Burn successful')
     }).catch(function(e) {
       console.log(e)
     })

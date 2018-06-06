@@ -34,6 +34,16 @@
                <div class="col s4 center-align"><a class="btn waves-effect waves-light"  onclick="App.allocateTokens(document.getElementById('tokenAmount').value.valueOf())">Lock <i class="material-icons right">lock_outline</i></a> </div>
            </form>
         </div>
+
+        <div class="row center">
+            <form class="center">
+                <div class="input-field col offset-s2 s5 right-align">
+                    <input placeholder="Tokens to Burn" id="tokenBurn" type="number">
+                    <label for="tokenBurn">Number of tokens to burn</label>
+                </div>
+                <div class="col s4 center-align"><a class="btn waves-effect waves-light"  onclick="App.deallocate(document.getElementById('tokenBurn').value.valueOf())">Burn <i class="material-icons right">whatshot</i></a> </div>
+            </form>
+        </div>
 <div class="section no-pad-bot">
     <div class="container">
         <h1 class="header center blue-grey-text">Main Network</h1>
