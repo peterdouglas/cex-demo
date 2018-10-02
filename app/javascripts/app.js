@@ -23,6 +23,7 @@ let account
 let regAccounts
 let web3Main = new Web3()
 let web3Reg = new Web3()
+
 web3Main.setProvider(new web3Main.providers.HttpProvider('http://127.0.0.1:8545'))
 web3Reg.setProvider(new web3Reg.providers.HttpProvider('http://127.0.0.1:22000'))
 window.App = {
@@ -31,7 +32,7 @@ window.App = {
     // Bootstrap the MetaCoin abstraction for Use.
     MainToken.setProvider(web3Main.currentProvider)
     RegToken.setProvider(web3Reg.currentProvider)
-    // Get the initial account balance so it can be displayed.
+    // Get the i nitial account balance so it can be displayed.
     web3Main.eth.getAccounts(function (err, accs) {
       if (err != null) {
         window.alert('There was an error fetching your accounts.')
@@ -182,6 +183,14 @@ window.App = {
 window.addEventListener('load', function () {
   // Checking if Web3 has been injected by the browser (Mist/MetaMask)
 // Is there is an injected web3 instance?
-
+if (typeof web3 !== 'undefined') {
+    console.warn("Using web3 detected from external source like Metamask")
+    // Use Mist/MetaMask's provider
+    window.web3 = new Web3(web3.currentProvider);
+  } else {
+    console.warn("No web3 detected. Falling back to http://localhost:8545. You should remove this fallback when you deploy live, as it's inherently insecure. Consider switching to Metamask for development. More info here: http://truffleframework.com/tutorials/truffle-and-metamask");
+    // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
+    window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+  }
   App.start()
 })

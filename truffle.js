@@ -23,6 +23,13 @@ module.exports = {
       network_id: '*', // Match any network id
       gasPrice: 0,
       gas: 2000000
-    }
+    },
+    q2: {
+        host: '127.0.0.1',
+        port: 22001,
+        network_id: '*', // Match any network id
+        gasPrice: 0,
+        gas: 2000000
+      }
   }
 }
